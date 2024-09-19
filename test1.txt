@@ -1,2 +1,70 @@
-changed
+import tkinter as tk
+from tkinter import messagebox
+
+class TrainBookingApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Train Ticket Booking Portal")
+
+        # Create and place widgets
+        self.create_widgets()
+
+    def create_widgets(self):
+        tk.Label(self.root, text="Train Ticket Booking", font=("Arial", 20)).grid(row=0, column=0, columnspan=2, pady=10)
+
+        tk.Label(self.root, text="Passenger Name:").grid(row=1, column=0, pady=5, padx=10)
+        self.name_entry = tk.Entry(self.root)
+        self.name_entry.grid(row=1, column=1, pady=5)
+
+        tk.Label(self.root, text="From:").grid(row=2, column=0, pady=5, padx=10)
+        self.from_entry = tk.Entry(self.root)
+        self.from_entry.grid(row=2, column=1, pady=5)
+
+        tk.Label(self.root, text="To:").grid(row=3, column=0, pady=5, padx=10)
+        self.to_entry = tk.Entry(self.root)
+        self.to_entry.grid(row=3, column=1, pady=5)
+
+        tk.Label(self.root, text="Date (DD/MM/YYYY):").grid(row=4, column=0, pady=5, padx=10)
+        self.date_entry = tk.Entry(self.root)
+        self.date_entry.grid(row=4, column=1, pady=5)
+
+        tk.Label(self.root, text="Train Number:").grid(row=5, column=0, pady=5, padx=10)
+        self.train_number_entry = tk.Entry(self.root)
+        self.train_number_entry.grid(row=5, column=1, pady=5)
+
+        self.book_button = tk.Button(self.root, text="Book Ticket", command=self.book_ticket)
+        self.book_button.grid(row=6, column=0, columnspan=2, pady=20)
+
+    def book_ticket(self):
+        name = self.name_entry.get()
+        from_location = self.from_entry.get()
+        to_location = self.to_entry.get()
+        date = self.date_entry.get()
+        train_number = self.train_number_entry.get()
+
+        if not (name and from_location and to_location and date and train_number):
+            messagebox.showwarning("Input Error", "All fields are required!")
+            return
+
+        # Here, you would usually save the booking to a database or file.
+        # For simplicity, we'll just show a confirmation message.
+        messagebox.showinfo("Booking Confirmed", f"Ticket booked successfully for {name} from {from_location} to {to_location} on {date} in train {train_number}.")
+
+        # Clear the form
+        self.clear_form()
+
+    def clear_form(self):
+        self.name_entry.delete(0, tk.END)
+        self.from_entry.delete(0, tk.END)
+        self.to_entry.delete(0, tk.END)
+        self.date_entry.delete(0, tk.END)
+        self.train_number_entry.delete(0, tk.END)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = TrainBookingApp(root)
+    root.mainloop()
+
+
+
 
